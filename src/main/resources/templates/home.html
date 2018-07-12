@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" xmlns:lx="http://www.laixiao.net"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/common.css">
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+
+				// 親Checkboxから子Checkboxを制御する処理のリンクをしておく
+				function linkChildCheckbox(parent, child) {
+					$(parent).change(
+							function() {
+								var checked = $(this).prop("checked");
+								var subValues = $(this).attr("lx:sub");
+								$.each(subValues.split(","), function(index,
+										value) {
+									$(child + "[value=" + value + "]").prop(
+											"checked", checked).trigger(
+											"change");
+								});
+							});
+				}
+				linkChildCheckbox("input[name=condition-top]",
+						"input[name=condition-sub]");
+				linkChildCheckbox("input[name=condition-sub]",
+						"input[name=detail]");
+
+				// 2次フィルターより、詳細を開閉する
+				$("table.sub td.toggle").click(
+						function() {
+							var subValues = $(this).closest("tr").find("input")
+									.attr("lx:sub");
+							$.each(subValues.split(","),
+									function(index, value) {
+										$(
+												"input[name=detail][value="
+														+ value + "]").closest(
+												"tr").toggle();
+									});
+						});
+				$("input[name=detail]").closest("tr").hide();
+			});
+</script>
+</head>
+<body>
+	<form action="@{/next}">
+		<h1>City一覧</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>no</th>
+					<th>id</th>
+					<th>name</th>
+					<th>state</th>
+					<th>country</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row,rowStat : ${cityList}">
+					<td th:text="${rowStat.count}">1</td>
+					<td th:text="${row.id}">1</td>
+					<td th:text="${row.name}">tokyo</td>
+					<td th:text="${row.state}">arakawa</td>
+					<td th:text="${row.country}">JP</td>
+				</tr>
+			</tbody>
+		</table>
+		<h1>
+			Top条件: <span th:text="${name}">fake</span>
+		</h1>
+		<table class="top">
+			<tr>
+				<td><input type="checkbox" name="condition-top" value="A"
+					lx:sub="1,2"></td>
+				<td>A条件</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="condition-top" value="B"
+					lx:sub="2,3"></td>
+				<td>B条件</td>
+			</tr>
+		</table>
+
+		<h1>2次フィルター</h1>
+		<table class="sub">
+			<tr>
+				<td><input type="checkbox" name="condition-sub" value="1"
+					lx:sub="1,3,7"></td>
+				<td class="toggle">1条件</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="condition-sub" value="2"
+					lx:sub="2,4,6"></td>
+				<td class="toggle">2条件</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="condition-sub" value="3"
+					lx:sub="5"></td>
+				<td class="toggle">3条件</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="condition-sub" value="4"
+					lx:sub="1,2,3"></td>
+				<td class="toggle">4条件</td>
+			</tr>
+		</table>
+
+		<h1>詳細</h1>
+		<table class="detail">
+			<tr>
+				<td><input type="checkbox" name="detail" value="1"></td>
+				<td>1詳細</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="detail" value="2"></td>
+				<td>2詳細</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="detail" value="3"></td>
+				<td>3詳細</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="detail" value="4"></td>
+				<td>4詳細</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="detail" value="5"></td>
+				<td>5詳細</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="detail" value="6"></td>
+				<td>6詳細</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="detail" value="7"></td>
+				<td>7詳細</td>
+			</tr>
+		</table>
+	</form>
+
+	<p>
+		Click <a th:href="@{/hello}">here</a> to see a greeting.
+	</p>
+</body>
+</html>
