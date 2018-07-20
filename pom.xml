@@ -6,7 +6,6 @@
 
 	<groupId>net.laixiao.demo</groupId>
 	<version>1.0.0</version>
-	<packaging>ear</packaging>
 
 	<description>Demo project for Spring Boot</description>
 
