@@ -17,8 +17,8 @@
 drop table if exists city;
 drop table if exists hotel;
 
-create table city (id int primary key auto_increment, name varchar, state varchar, country varchar);
-create table hotel (city int, name varchar, address varchar, zip varchar);
+create table city (id int primary key auto_increment, name varchar(128), state varchar(128), country varchar(128));
+create table hotel (city int, name varchar(128), address varchar(128), zip varchar(128));
 
 insert into city (name, state, country) values
 ('San Francisco', 'CA', 'US'),
