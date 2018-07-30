@@ -14,15 +14,15 @@ import net.laixiao.demo.service.HomeService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private HomeService homeService;
+    @Autowired
+    private HomeService homeService;
 
-	@RequestMapping("/")
-	public String home(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Model model) {
-		List<City> cityList = homeService.getAllCityList();
-		model.addAttribute("name", name);
-		model.addAttribute("cityList", cityList);
-		return "home";
-	}
+    @RequestMapping("/")
+    public String home(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+            Model model) {
+        List<City> cityList = homeService.getAllCityList();
+        model.addAttribute("name", name);
+        model.addAttribute("cityList", cityList);
+        return "home";
+    }
 }
