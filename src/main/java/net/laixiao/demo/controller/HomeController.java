@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.laixiao.demo.entity.City;
+import net.laixiao.demo.entity.Hotel;
 import net.laixiao.demo.service.HomeService;
 
 @Controller
@@ -21,8 +22,10 @@ public class HomeController {
     public String home(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
             Model model) {
         List<City> cityList = homeService.getAllCityList();
+        List<Hotel> hotelList = homeService.getAllHotelList();
         model.addAttribute("name", name);
         model.addAttribute("cityList", cityList);
+        model.addAttribute("hotelList", hotelList);
         return "home";
     }
 }

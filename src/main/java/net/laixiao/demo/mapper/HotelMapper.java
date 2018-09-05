@@ -15,6 +15,8 @@
  */
 package net.laixiao.demo.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import net.laixiao.demo.entity.Hotel;
@@ -25,6 +27,7 @@ import net.laixiao.demo.entity.Hotel;
 @Mapper
 public interface HotelMapper {
 
-	Hotel selectByCityId(int city_id);
+    Hotel selectByCityId(int cityId);
 
+    List<Hotel> selectAll();
 }

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,32 +13,19 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package net.laixiao.demo.dao;
+package net.laixiao.demo.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
 import net.laixiao.demo.entity.City;
 
 /**
- * @author Eddú Meléndez
+ * @author Eduardo Macarron
  */
-@Component
-public class CityDao {
+@Mapper
+public interface CityMapper {
 
-	private final SqlSession sqlSession;
-
-	public CityDao(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-
-	public City selectCityById(long id) {
-		return this.sqlSession.selectOne("selectCityById", id);
-	}
-
-	public List<City> selectAll() {
-		return this.sqlSession.selectList("selectAll");
-	}
+    List<City> selectAll();
 }
