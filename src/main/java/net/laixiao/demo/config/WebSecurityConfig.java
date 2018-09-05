@@ -18,7 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //// @formatter:off
         http
             .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -27,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .permitAll();
-		// @formatter:on
+        // @formatter:on
     }
 
     @Bean
@@ -40,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("password")
                 .roles("USER")
                 .build();
-		// @formatter:on
+        // @formatter:on
         return new InMemoryUserDetailsManager(user);
     }
 }
